@@ -1,0 +1,211 @@
+﻿@using EntityLayers.Concrete
+@model List<TBLDOKTOR>
+@{
+    ViewBag.Title = "Doktor Listesi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2> <span class="glyphicon glyphicon-ok"></span> @ViewBag.Title</h2>
+<hr style="height:2px;border-width:0;color:gray;background-color:gray" />
+
+<form method="post" action="/Doktor/Index" style="align-self:start">
+    <button class="btn btn-danger" style="margin-right:29px">PASİF DOKTORLARI DA GÖSTER</button>
+    <a href="/Doktor/Index" type="button" class="btn btn-primary" style="align-content:end">SADECE AKTİFLERİ GÖSTER</a>
+</form>
+
+
+
+<hr style="height:2px;border-width:0;color:gray;background-color:gray" />
+<table class="table table-hover" id="doktorTablosu">
+    <thead>
+        <tr>
+
+            <th>DOKTOR NO</th>
+            <th>DOKTOR AD</th>
+            <th>PASİFİZE ET</th>
+            <th>GÜNCELLE</th>
+
+
+        </tr>
+    </thead>
+
+
+    @foreach (var doktor in Model)
+    {
+
+
+
+
+        <tr>
+            <td>@doktor.DOKTORID</td>
+            <td>
+
+                <button class="btn btn-warning" data-toggle="modal" data-target="#-@doktor.DOKTORID" title="Doktoru Gör">
+                    @doktor.DOKTORAD  @*doktor GÖR LİNKİ - datatarget'a - (eksi) değeri verdik. Dİğeriyşe karışmasın diye'*@
+                </button>
+            </td>
+
+            <td>
+                @if (doktor.DOKTORPASIF == true)
+                {
+
+                    <button class="btn btn-success" data-toggle="modal" data-target="#@doktor.DOKTORID" title="Pasif Yapmak için Tıkla">
+                        @*AKTİF PASİF LİNKİ*@
+                        AKTİF
+                    </button>
+
+                }
+                else
+                {
+
+
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#@doktor.DOKTORID" title="Aktif Yapmak için Tıkla">PASİF</button>
+                    @*AKTİF PASİF LİNKİ*@
+                }
+
+                @*AKTİF PASİF MODAL'I'*@
+                <div class="modal" tabindex="-1" role="dialog" id="@doktor.DOKTORID">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+
+                                @if (doktor.DOKTORPASIF == true)
+
+                                {
+                                    <h2 class="modal-title">
+                                        BU DOKTOR ~PASİF~ OLACAK!
+                                    </h2>
+                                }
+                                else
+                                {
+
+                                    <h2 class="modal-title">
+                                        BU DOKTOR ~AKTİF~ OLACAK!
+                                    </h2>
+
+                                }
+
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>İyi Düşündünüz mü? Gerçketen Bunu Yapmak İstiyor musunuz?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/Doktor/DoktorPasifYap/@doktor.DOKTORID" type="button" class="btn btn-primary">Evet</a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hayır</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*----------------------------------------------*@
+
+
+                @*DOKTOR GÖR  MODAL'I'*@
+                <div class="modal" tabindex="-1" role="dialog" id="-@doktor.DOKTORID">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+
+                                @doktor.DOKTORAD
+
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+
+                                    @Html.Raw(doktor.DOKTORADRESBILGI)
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">KAPAT</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*----------------------------------------------*@
+
+            </td>
+            <td><a href="/Doktor/doktorDuzenlemeSayfasi/@doktor.DOKTORID" class="btn btn-info">GÜNCELLE</a></td>
+        </tr>
+
+    }
+
+
+
+</table>
+<br />
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#yenidoktor3">
+    YENİ DOKTOR EKLE
+</button>
+@*YENİ DOKTOR  MODAL'I'*@
+<div class="modal" id="yenidoktor3">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>YENİ DOKTOR EKLEME PANELİ</h2>
+            </div>
+
+            <form method="post" action="~/Doktor/YeniDoktor">
+
+
+                <div class="modal-body">
+
+                    <input name="DOKTORAD" type="text" class="form-control" style="  min-width:100%" placeholder="Doktor Adı Giriniz..." required />
+
+                    <input name="DOKTORPASIF" type="hidden" value="true" />
+                    <br />
+
+                    <textarea name="DOKTORADRESBILGI" type="text" class="form-control" style="  min-width:100%" placeholder="Doktor Bilgileriniş Giriniz..." required>
+ADRES:
+TEL:
+
+                    </textarea>
+
+                   
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-success" style="margin:10px">EKLE</button>
+                    <button class="btn btn-danger" data-dismiss="modal" style="margin:10px">VAZGEÇ</button>
+                </div>
+
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/DataTables/js/DataTables.min.js"></script>
+<script>
+    $('#doktorTablosu').DataTable({
+
+
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.12.1/i18n/tr.json"
+        }
+    });
+
+</script>
+

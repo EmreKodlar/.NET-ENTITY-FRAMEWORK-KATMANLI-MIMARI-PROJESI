@@ -1,0 +1,41 @@
+﻿@model EntityLayers.Concrete.TBLDOKTOR
+@{
+
+    ViewBag.Title = "Doktor Düzenleme Sayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3><span class="glyphicon glyphicon-user"></span> <a href="/Doktor/Index" class="margin-right:55px;">Doktorlar</a> <span class="glyphicon glyphicon-triangle-right"></span> @ViewBag.Title  </h3>
+
+<hr />
+
+
+@using (Html.BeginForm("doktorDuzenlemeSayfasi", "Doktor", FormMethod.Post))
+{
+
+    @Html.HiddenFor(x => x.DOKTORPASIF)
+
+    @Html.HiddenFor(x => x.DOKTORID)
+
+    <label>
+        DOKTOR Adı: @Html.ValidationMessageFor(x => x.DOKTORAD, "", new { @class = "alert-danger " })
+    </label>
+    @Html.TextBoxFor(x => x.DOKTORAD, new { @class = "form-control", @required = "required" })
+
+    <br />
+
+    <label>
+        DOKTOR Bilgileri:  @Html.ValidationMessageFor(x => x.DOKTORADRESBILGI, "", new { @class = "text-danger" })
+    </label>
+    @Html.EditorFor(x => x.DOKTORADRESBILGI, new { @class = "form-control", @required = "required", htmlAttributes = new { rows = 5 } })
+
+
+
+
+    <br />
+
+    <button class="btn btn-info">GÜNCELLE</button>
+
+}
+

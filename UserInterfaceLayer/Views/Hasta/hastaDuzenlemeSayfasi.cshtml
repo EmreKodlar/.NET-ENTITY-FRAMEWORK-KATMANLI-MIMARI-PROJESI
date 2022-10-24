@@ -1,0 +1,39 @@
+﻿@model EntityLayers.Concrete.TBLHASTA
+@{
+
+    ViewBag.Title = "Hasta Duzenleme Sayfası";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3><span class="glyphicon glyphicon-user"></span> <a href="/Hasta/HastaGetir" class="margin-right:55px;">Hastalar</a> <span class="glyphicon glyphicon-triangle-right"></span> @ViewBag.Title  </h3>
+
+
+<hr />
+
+@using (Html.BeginForm("hastaDuzenlemeSayfasi", "Hasta", FormMethod.Post))
+{
+
+    @Html.HiddenFor(x => x.HASTAID)
+    @Html.HiddenFor(x => x.HASTAPASIF)
+
+    <label>
+        Hasta Adı: @Html.ValidationMessageFor(x => x.HASTAAD, "", new { @class = "alert-danger " })
+    </label>
+    @Html.TextBoxFor(x => x.HASTAAD, new { @class = "form-control", @required = "required" })
+
+    <br />
+
+    <label>
+        Hasta Bilgileri:  @Html.ValidationMessageFor(x => x.HASTAADRESBILGI, "", new { @class = "text-danger" })
+    </label>
+    @Html.EditorFor(x => x.HASTAADRESBILGI, new { @class = "form-control", @required = "required" })
+
+
+
+
+    <br />
+
+    <button class="btn btn-info">GÜNCELLE</button>
+
+}
+

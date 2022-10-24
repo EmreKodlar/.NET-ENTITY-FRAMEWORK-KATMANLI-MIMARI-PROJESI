@@ -1,0 +1,44 @@
+﻿@model EntityLayers.Concrete.TBLODEME
+ 
+
+@{
+    ViewBag.Title = "Ödeme Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3><span class="glyphicon glyphicon-user"></span> <a href="/Odeme/Index" class="margin-right:55px;">Ödemeler</a> <span class="glyphicon glyphicon-triangle-right"></span> @ViewBag.Title  </h3>
+
+
+<hr />
+
+@using (Html.BeginForm("OdemeDuzenle", "Odeme", FormMethod.Post))
+{
+
+    @Html.HiddenFor(x => x.ODEMEID)
+    @Html.HiddenFor(x => x.ODEMETARIH)
+
+    <label>
+        Miktar:
+    </label>
+    @Html.TextBoxFor(x => x.ODEMEMIKTAR, new { @class = "form-control", @style = "min-width:100%", @required = "required" })
+
+    <label>
+
+        Hasta Adı:
+    </label>
+    @Html.DropDownListFor(m => m.HASTAID, ViewBag.HastaSirala as SelectList, new { @class = "form-control", @style = "min-width:100%" })
+
+
+
+    <label>
+        Doktor Adı:
+    </label>
+    @Html.DropDownListFor(x => x.DOKTORID, ViewBag.DoktorSirala as SelectList, new { @class = "form-control", @style = "min-width:100%" })
+
+    <br />
+
+    <button class="btn btn-info">GÜNCELLE</button>
+
+}

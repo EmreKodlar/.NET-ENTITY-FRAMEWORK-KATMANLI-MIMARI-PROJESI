@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "kNUKl9IAKQH3R4Bk+TrW5kG+XG13NMXu8swa8jeDT5SQ7IL7BanWa78qqewjXiXguifoDn+l7DzVHr5w1pAxlw==",
+  "success": true,
+  "projectFilePath": "C:\\PROJELER\\asp.netMVC\\Katmanli_Mimari\\EntityLayer\\EntityLayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\EMRE\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\EMRE\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\EMRE\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
